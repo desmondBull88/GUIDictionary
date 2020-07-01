@@ -6,6 +6,8 @@ import json
 from difflib import get_close_matches
 
 root = tk.Tk()
+root.geometry('600x700')
+root.resizable(height=False, width=False)
 root.title('Dictionary')
 
 
