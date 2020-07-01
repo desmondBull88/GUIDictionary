@@ -53,8 +53,8 @@ def noResponse():
 canvas = tk.Canvas(root, height=600, width=700, bg='PaleTurquoise1')
 canvas.pack()
 
-image1 = ImageTk.PhotoImage(Image.open(r'background5.jpg'))
-icon = ImageTk.PhotoImage(Image.open(r'icon3.png'))
+image1 = tk.PhotoImage(file="background5.jpg")
+icon = tk.PhotoImage(file="icon3.png")
 background = tk.Label(root, image=image1)
 background.place(relwidth=1, relheight=1)
 
