@@ -1,5 +1,7 @@
 from tkinter import font
+from PIL import ImageTk, Image
 import tkinter as tk
+from tkinter import ttk
 import json
 from difflib import get_close_matches
 
@@ -37,43 +39,61 @@ def yesResponse(word):
     for item in meaning:
         label_output2 = label_output2 + '\n\n' + item
     label.config(text=label_output2)
+    yes_button.config(state=tk.DISABLED)
+    no_button.config(state=tk.DISABLED)
 
 
 def noResponse():
     word.delete(0, tk.END)
     label.config(text="")
+    yes_button.config(state=tk.DISABLED)
+    no_button.config(state=tk.DISABLED)
 
 
 canvas = tk.Canvas(root, height=600, width=700, bg='PaleTurquoise1')
 canvas.pack()
 
-frame = tk.Frame(root, bg='turquoise1', bd=5)
-frame.place(relx=0.15, rely=0.1, relheight=0.1, relwidth=0.75)
+image1 = ImageTk.PhotoImage(Image.open(r'background5.jpg'))
+icon = ImageTk.PhotoImage(Image.open(r'icon3.png'))
+background = tk.Label(root, image=image1)
+background.place(relwidth=1, relheight=1)
 
-word = tk.Entry(frame, font=40)
-word.place(relwidth=0.6, relheight=1)
 
-enter = tk.Button(frame, text='Find Definition',
-                  command=lambda: definition(word.get()))
-enter.place(relx=0.65, relheight=1, relwidth=0.35)
+frame = tk.Frame(root, bg='gray25', bd=5)
+frame.place(relx=0.15, rely=0.125, relheight=0.1, relwidth=0.7)
 
-yes_button = tk.Button(canvas, text='Yes', padx=40,
-                       pady=4, bd=5, state=tk.DISABLED, command=lambda: yesResponse(word.get()))
-yes_button.place(relx=0.275, rely=0.915)
+word = ttk.Entry(frame, font=40)
+word.place(relwidth=0.825, relheight=1)
 
-no_button = tk.Button(canvas, text='No', padx=40,
-                      pady=4, bd=5, state=tk.DISABLED, command=noResponse)
-no_button.place(relx=0.6, rely=0.915)
+enter = ttk.Button(frame, text='Find Definition', image=icon,
+                   command=lambda: definition(word.get()))
+enter.place(relx=0.85, relheight=1, relwidth=0.15)
 
-clear_button = tk.Button(canvas, text='Clear All',
-                         padx=20, pady=4, bd=5, command=noResponse)
-clear_button.place(relx=0.445, rely=0.915)
+yes_button = ttk.Button(root, text='Yes',
+                        state=tk.DISABLED, command=lambda: yesResponse(word.get()))
+yes_button.place(relx=0.25, rely=0.915)
 
-lower_frame = tk.Frame(root, bg='turquoise1', bd=5)
-lower_frame.place(relx=0.15, rely=0.25, relheight=0.65, relwidth=0.75)
+no_button = ttk.Button(root, text='No',
+                       state=tk.DISABLED, command=noResponse)
+no_button.place(relx=0.65, rely=0.915)
+
+clear_button = ttk.Button(root, text='Clear All',
+                          command=noResponse)
+clear_button.place(relx=0.45, rely=0.915)
+
+lower_frame = tk.Frame(root, bg='gray25', bd=5)
+lower_frame.place(relx=0.15, rely=0.25, relheight=0.65, relwidth=0.7)
 
 label = tk.Label(lower_frame, bg='azure', text='', font=(
     'Courier', 12), anchor='nw', justify='left', bd=3, wraplength=475)
 label.place(relwidth=1, relheight=1)
+
+upper_frame = tk.Frame(root, bg='gray30', bd=5)
+upper_frame.place(relx=0.165, rely=0.01)
+label2 = tk.Label(upper_frame, text='Welcome to the English Dictionary', fg='gray25', bg='azure', bd=5,
+                  font=('Helvetica', 20, 'bold'))
+label2.pack()
+
+label3 = tk.Label(root, )
 
 root.mainloop()
